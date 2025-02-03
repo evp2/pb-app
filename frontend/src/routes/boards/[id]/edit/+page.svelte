@@ -34,7 +34,7 @@
 						user,
 					});
 					alerts.info("Changes saved.", 5000);
-					window.location.href = `${base}/boards`;
+					$formData = f.data;
 				} catch (error) {
 					alerts.info("Error saving changes.");
 				}
@@ -61,9 +61,7 @@
 			<Form.Label>Slug</Form.Label>
 			<Input bind:value={$formData.slug} />
 		</Form.Control>
-		<Form.Description
-			>This is the URL slug to access this board.</Form.Description
-		>
+		<Form.Description>This is the URL slug to access this board.</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="public">

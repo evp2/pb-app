@@ -5,7 +5,7 @@
 		superForm,
 	} from "sveltekit-superforms";
 	import { alerts } from "$lib/components/Alerts.svelte";
-	import { authModel, client, save } from "$lib/pocketbase";
+	import {authModel, client, getItemById, save} from "$lib/pocketbase";
 	import * as Select from "$lib/components/ui/select";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
 	import { Trash2 } from 'lucide-svelte';
@@ -62,21 +62,12 @@
 
 	const { form: formData, enhance } = form;
 	const selectedBoard = $derived(
-		$formData.board ? getBoardById($formData.board).title : "Select Board"
+		$formData.board ? getItemById($boardsArray, $formData.board).title : "Select Board"
 	)
 
 	const selectedAssignee = $derived(
-		$formData.assignee ? getUserById($formData.assignee).name : "Select Assignee"
+		$formData.assignee ? getItemById($usersArray, $formData.assignee).name : "Select Assignee"
 	)
-
-	function getUserById(id: string) {
-		return $usersArray.items.find((user) => user.id === id);
-	}
-
-	function getBoardById(id: string) {
-		return $boardsArray.items.find((board) => board.id === id);
-	}
-
 </script>
 
 <form method="POST" use:enhance enctype="multipart/form-data">
