@@ -6,7 +6,7 @@ Use this app as a starting point for building a frontend.
   for NodeJS at runtime. It is generated using
   [`adapter-static`](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
   and `ssr` is OFF.
-- The backend is a [PocketBase](https://pocketbase.io) and can be downloaded as a single binary see Setup.
+- The backend is [PocketBase](https://pocketbase.io) and can be downloaded as a single binary see Setup.
 
 # Setup
 
@@ -60,7 +60,7 @@ This method works if you have Go Tools installed and want to set up the machine 
 
 # Developing
 
-Visit http://localhost:5173 (sk) or http://localhost:8090 (pb)
+Visit http://localhost:5173 (frontend) or http://localhost:8090 (backend)
 
 If you are running `modd`, making changes in the Svelte code (frontend) or Go code (backend) will show
 results (almost) immediately.
