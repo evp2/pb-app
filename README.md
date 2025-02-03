@@ -6,7 +6,7 @@ Use this app as a starting point for building a frontend.
   for NodeJS at runtime. It is generated using
   [`adapter-static`](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
   and `ssr` is OFF.
-- The backend is [PocketBase](https://pocketbase.io) and can be downloaded as a single binary see Setup.
+- The backend is [PocketBase](https://pocketbase.io) and can be downloaded as a single binary see Setup instructions below.
 
 # Setup
 
@@ -31,7 +31,7 @@ Make sure your Docker daemon is running then complete the following steps:
    This starts the frontend dev server.
 5. Both sides are working if you navigate to the home page on the development server
 
-## With pocketbase binary
+## With PocketBase binary
 
 This method is a good alternative for simple use cases that don't use either Docker or Go, and instead uses JavaScript-exclusive customizations.
 
