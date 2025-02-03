@@ -16,12 +16,8 @@
 	});
 </script>
 
-<ScrollArea
-		class="rounded-md border"
-		orientation="both"
-		type="always"
->
-	<div class="grid grid-cols-3 p-4" style="width: 1200px;height: 1000px;">
+<ScrollArea class="rounded-md border" orientation="both" type="always">
+	<div class="grid grid-cols-3 p-4" style="height: 800px;">
 		{#each columns as column (column.name)}
 			<div>
 				<h2>{column.name}</h2>

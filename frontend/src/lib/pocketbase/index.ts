@@ -213,5 +213,5 @@ export async function providerLogin(
 }
 
 export function getItemById(itemArray: any, id: string) {
-	return itemArray.items.find((item) => item.id === id);
+	return itemArray.items.find((item: any) => item.id === id);
 }

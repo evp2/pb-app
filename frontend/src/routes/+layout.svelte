@@ -33,7 +33,7 @@
 		{@render children()}
 	</main>
 	<footer class="container pt-5" style="border-block-start: dashed 1px;">
-		<Badge variant="outline">&copy; {new Date().getFullYear()}</Badge>
+		<Badge variant="outline">&copy; <a href="https://github.com/evp2">{new Date().getFullYear()}</a></Badge>
 	</footer>
 	<AppSidebar />
 </Sidebar.Provider>

@@ -1,7 +1,12 @@
+FROM node:22-alpine AS builder
+WORKDIR /ui
+COPY frontend .
+RUN npx pnpm install && npx pnpm run build
+
 FROM alpine:latest
 
 ARG PB_VERSION=0.22.30
-COPY /sk/build /pb/pb_public
+COPY --from=builder /ui/build /pb/pb_public
 
 RUN apk add --no-cache \
  unzip \
@@ -12,16 +17,16 @@ ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/po
 RUN unzip /tmp/pb.zip -d /pb/
 
 # uncomment to copy the local pb_migrations dir into the image
-#COPY pb/pb_migrations /pb/pb_migrations
+#COPY backend/pb_migrations /pb/pb_migrations
 
-#TODO: setup db with test data
-COPY pb/pb_data /pb/pb_data
+# uncomment to copy the local pb_data dir into the image
+#COPY backend/pb_data /pb/pb_data
 
 # uncomment to copy the local pb_hooks dir into the image
-COPY pb/pb_hooks /pb/pb_hooks
+COPY backend/pb_hooks /pb/pb_hooks
 
 # expose PocketBase port
 EXPOSE 8090
 
-# start PocketBase in dev mode
-CMD ["/pb/pocketbase", "--dev",  "serve", "--http", "0.0.0.0:8090"]
+# start PocketBase
+CMD ["/backend/pocketbase", "serve", "--http", "0.0.0.0:8090"]

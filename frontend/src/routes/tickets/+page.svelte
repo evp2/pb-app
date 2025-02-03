@@ -17,8 +17,6 @@
 	$effect(() => {
 		data.metadata.title = data.metadata.headline = "Tickets";
 	});
-
-
 </script>
 
 <LoginGuard>

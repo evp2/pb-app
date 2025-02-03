@@ -5,7 +5,7 @@
 		superForm,
 	} from "sveltekit-superforms";
 	import { alerts } from "$lib/components/Alerts.svelte";
-	import { authModel, client, save } from "$lib/pocketbase";
+	import {authModel, client, getItemById, save} from "$lib/pocketbase";
 	import * as Select from "$lib/components/ui/select";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
 	import { Trash2 } from 'lucide-svelte';
@@ -28,7 +28,6 @@
 	let boardsArray = $state(data.boards);
 	let usersArray = $state(data.users);
 
-	let fileInput = $state() as HTMLInputElement;
 	let toBeRemoved = $state([]);
 
 	$effect(() => {
@@ -62,21 +61,12 @@
 
 	const { form: formData, enhance } = form;
 	const selectedBoard = $derived(
-		$formData.board ? getBoardById($formData.board).title : "Select Board"
+		$formData.board ? getItemById($boardsArray, $formData.board).title : "Select Board"
 	)
 
 	const selectedAssignee = $derived(
-		$formData.assignee ? getUserById($formData.assignee).name : "Select Assignee"
+		$formData.assignee ? getItemById($usersArray, $formData.assignee).name : "Select Assignee"
 	)
-
-	function getUserById(id: string) {
-		return $usersArray.items.find((user) => user.id === id);
-	}
-
-	function getBoardById(id: string) {
-		return $boardsArray.items.find((board) => board.id === id);
-	}
-
 </script>
 
 <form method="POST" use:enhance enctype="multipart/form-data">
@@ -102,7 +92,7 @@
 			</Select.Root>
 			{/snippet}
 		</Form.Control>
-		<Form.Description>The board to attach this ticket</Form.Description>
+		<Form.Description>The board to assign this ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="assignee">
@@ -119,17 +109,15 @@
 				</Select.Root>
 			{/snippet}
 		</Form.Control>
-		<Form.Description>The person assigned to the ticket</Form.Description>
+		<Form.Description>The developer assigned to the ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="body">
 		<Form.Control>
-			{#snippet children({ props })}
-				<Form.Label>Body</Form.Label>
-				<Textarea placeholder="Body" bind:value={$formData.body} />
-			{/snippet}
+			<Form.Label>Body</Form.Label>
+			<Textarea placeholder="Body" bind:value={$formData.body} />
 		</Form.Control>
-		<Form.Description>A description of the ticket</Form.Description>
+		<Form.Description>The description of the request</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="files">
