@@ -1,23 +1,27 @@
 <script lang="ts">
 	import ImgModal from "$lib/pocketbase/ImgModal.svelte";
 	import { client } from "$lib/pocketbase/index.js";
-	import {Footer} from "$lib/components/ui/sheet";
-	import TabMenu from "$lib/components/TabMenu.svelte";
-	import TabItem from "$lib/components/TabItem.svelte";
-
+	import { ScrollArea } from "$lib/components/ui/scroll-area";
 	const { data } = $props();
 	const record = $derived(data.record);
+
+	const columns = [
+		{ name: "Ready" },
+		{ name: "In Progress" },
+		{ name: "Complete" },
+	];
+
 	$effect(() => {
 		data.metadata.title = data.metadata.headline = record.title;
 	});
 </script>
 
-<article>
-	<pre class="body">{record.title}</pre>
-	{#each record.files ?? [] as file, index}
-		{@const src = client.files.getUrl(record, file)}
-		{@const title = `image ${index + 1} for: ${record.title}`}
-		<!-- <img {src} alt={title} {title} /> -->
-		<ImgModal {record} filename={file} />
-	{/each}
-</article>
+<ScrollArea class="rounded-md border" orientation="both" type="always">
+	<div class="grid grid-cols-3 p-4" style="height: 800px;">
+		{#each columns as column (column.name)}
+			<div>
+				<h2>{column.name}</h2>
+			</div>
+		{/each}
+	</div>
+</ScrollArea>

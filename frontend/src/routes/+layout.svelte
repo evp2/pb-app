@@ -4,7 +4,6 @@
 	import { page } from "$app/stores";
 	import Alerts from "$lib/components/Alerts.svelte";
 	import LoginBadge from "$lib/components/LoginBadge.svelte";
-	import Nav from "$lib/components/Nav.svelte";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 	import AppSidebar from "$lib/components/SideBar.svelte";
 	import { Badge } from "$lib/components/ui/badge/index.js";
@@ -34,7 +33,7 @@
 		{@render children()}
 	</main>
 	<footer class="container pt-5" style="border-block-start: dashed 1px;">
-		<Badge variant="outline">&copy; {new Date().getFullYear()}</Badge>
+		<Badge variant="outline">&copy; <a href="https://github.com/evp2">{new Date().getFullYear()}</a></Badge>
 	</footer>
 	<AppSidebar />
 </Sidebar.Provider>

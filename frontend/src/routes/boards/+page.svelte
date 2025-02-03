@@ -7,9 +7,9 @@
 	import EditPage from "./[id]/edit/+page.svelte";
 	import LoginGuard from "$lib/components/LoginGuard.svelte";
 	import Paginator from "$lib/pocketbase/Paginator.svelte";
-	import Spinner, { activityStore } from "$lib/components/Spinner.svelte";
+	import { activityStore } from "$lib/components/Spinner.svelte";
 	import { Badge } from "$lib/components/ui/badge";
-	import {Button} from "$lib/components/ui/button";
+	import { Button } from "$lib/components/ui/button";
 
 	const { data } = $props();
 	const boards = $derived(data.boards);
@@ -33,7 +33,7 @@
 		{/snippet}
 	</Link2Modal>
 	{#snippet otherwise()}
-		<p>Please Sign In to create/edit Kanban boards.</p>
+		<p>Please Sign In to create/edit project boards.</p>
 	{/snippet}
 </LoginGuard>
 <Paginator store={boards} showIfSinglePage={false} />

@@ -26,10 +26,8 @@
 <LoginGuard>
 	<Tabs bind:active>
 		{#snippet tabs()}
-			<a href="{base}/tickets/{record.slug || record.id}/">
-				<Tab key="view" pathname="/tickets/{record.slug || record.id}/"
-					>View</Tab
-				>
+			<a href="{base}/tickets/{record.id}/">
+				<Tab key="view" pathname="/tickets/{record.id}/">View</Tab>
 			</a>
 			{#if $authModel?.id === record.user || client.authStore.isAdmin}
 				<a href="{base}/tickets/{record.id}/edit/">

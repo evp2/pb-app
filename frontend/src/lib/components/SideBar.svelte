@@ -19,7 +19,7 @@
             icon: Tag,
         },
         {
-            title: "Boards",
+            title: "Projects",
             url: "/boards/",
             icon: SquareKanban,
         },

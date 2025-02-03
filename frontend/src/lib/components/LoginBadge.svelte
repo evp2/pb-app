@@ -28,22 +28,22 @@
 	<Dialog>
 		{#snippet trigger(show)}
 			<button class="badge" onclick={show}>
-				<img src={url ? url : "/avatar.jpg"} alt="profile pic" />
+				<img src={url ? url : "/favicon.png"} alt="profile pic" />
 				<samp>
 					{$authModel?.name || $authModel?.username || $authModel?.email}
 				</samp>
 			</button>
 		{/snippet}
-		<div class="wrapper">
+		<div class="wrapper p-3">
 			<div class="badge">
 				{#if $authModel.avatar}
-					<img src={url ? url : "/avatar.jpg"} alt="profile pic" />
+					<img src={url ? url : "/favicon.png"} alt="profile pic" />
 				{/if}
 				<samp>
 					{$authModel?.name ?? $authModel?.username ?? $authModel?.email}
 				</samp>
 			</div>
-			<button onclick={logout}>Sign Out</button>
+			<Button onclick={logout}>Sign Out</Button>
 		</div>
 	</Dialog>
 {:else}
