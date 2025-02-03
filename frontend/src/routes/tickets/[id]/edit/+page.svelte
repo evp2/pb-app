@@ -25,33 +25,32 @@
 	let { data }: { data: SuperValidated<Infer<TicketSchema>> } = $props();
 
 	let record = $state(data.record);
-	let kanbanBoards = $state(data.boards);
+	let boardsArray = $state(data.boards);
 	let usersArray = $state(data.users);
-
 
 	let fileInput = $state() as HTMLInputElement;
 	let toBeRemoved = $state([]);
 
 	$effect(() => {
-		$inspect(record);
+		$inspect(data.record);
 		data.metadata.title = data.metadata.headline = `Edit Ticket: ${record.title}`;
 	});
 
-	const form = superForm(record, {
+	const form = superForm(data.record, {
 		SPA: true,
 		validators: zodClient(ticketSchema),
 		onUpdated: async ({ form: f }) => {
-			console.log(record);
 			if (f.valid) {
 				const user = client.authStore.isAdmin ? "" : $authModel?.id;
 				try {
 					await save<TicketsResponse>("tickets", {
 						...f.data,
-						files: record.files,
+						files: data.record?.files,
 						user,
 						"files-": toBeRemoved,
 					});
 					alerts.info("Changes saved.", 5000);
+					$formData = f.data;
 				} catch (error) {
 					alerts.info("Error saving changes.");
 				}
@@ -63,62 +62,74 @@
 
 	const { form: formData, enhance } = form;
 	const selectedBoard = $derived(
-		record.board ? record.board : "Select Board"
+		$formData.board ? getBoardById($formData.board).title : "Select Board"
 	)
+
 	const selectedAssignee = $derived(
-		record.assignee ? record.assignee : "Select Assignee"
+		$formData.assignee ? getUserById($formData.assignee).name : "Select Assignee"
 	)
+
+	function getUserById(id: string) {
+		return $usersArray.items.find((user) => user.id === id);
+	}
+
+	function getBoardById(id: string) {
+		return $boardsArray.items.find((board) => board.id === id);
+	}
+
 </script>
 
 <form method="POST" use:enhance enctype="multipart/form-data">
 	<Form.Field {form} name="title">
 		<Form.Control>
-			<Form.Description>This is the title of the ticket</Form.Description>
 			<Form.Label>Title</Form.Label>
-			<Input bind:value={record.title} />
+			<Input bind:value={$formData.title} />
 		</Form.Control>
+		<Form.Description>The title of the ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="board">
 		<Form.Control>
 			{#snippet children({ props })}
 			<Form.Label>Board</Form.Label>
-			<Select.Root bind:value={record.board} type="single" name={props.name}>
+			<Select.Root bind:value={$formData.board} type="single" name={props.name}>
 				<Select.Trigger {...props}>{selectedBoard}</Select.Trigger>
 				<Select.Content>
-					{#each $kanbanBoards.items as item}
+					{#each $boardsArray.items as item}
 						<Select.Item value={item.id} label={item.title}></Select.Item>
 					{/each}
 				</Select.Content>
 			</Select.Root>
 			{/snippet}
 		</Form.Control>
-		<Form.Description>This is the Kanban board to attach this ticket</Form.Description>
+		<Form.Description>The board to attach this ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="assignee">
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Assignee</Form.Label>
-				<Select.Root bind:value={record.assignee} type="single" name={props.name}>
+				<Select.Root bind:value={$formData.assignee} type="single" name={props.name}>
 					<Select.Trigger {...props}>{selectedAssignee}</Select.Trigger>
 					<Select.Content>
 						{#each $usersArray.items as item}
-							<Select.Item label={item.name} value={item.name}></Select.Item>
+							<Select.Item label={item.name} value={item.id}></Select.Item>
 						{/each}
 					</Select.Content>
 				</Select.Root>
 			{/snippet}
 		</Form.Control>
-		<Form.Description>This is the person assigned to the ticket</Form.Description>
+		<Form.Description>The person assigned to the ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="body">
 		<Form.Control>
-			<Form.Label>Body</Form.Label>
-			<Textarea placeholder="Body" bind:value={record.body} />
+			{#snippet children({ props })}
+				<Form.Label>Body</Form.Label>
+				<Textarea placeholder="Body" bind:value={$formData.body} />
+			{/snippet}
 		</Form.Control>
-		<Form.Description>This is a description of the ticket</Form.Description>
+		<Form.Description>A description of the ticket</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="files">
@@ -129,7 +140,7 @@
 					multiple
 					name="files"
 					accept="image/png, image/jpeg"
-					on:input={(e) => (record.files = Array.from(e.currentTarget.files ?? []))}
+					on:input={(e) => ($formData.files = Array.from(e.currentTarget.files ?? []))}
 			/>
 		</Form.Control>
 		<Form.Description>Files to upload with the ticket</Form.Description>

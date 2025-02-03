@@ -4,7 +4,6 @@
 	import { page } from "$app/stores";
 	import Alerts from "$lib/components/Alerts.svelte";
 	import LoginBadge from "$lib/components/LoginBadge.svelte";
-	import Nav from "$lib/components/Nav.svelte";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 	import AppSidebar from "$lib/components/SideBar.svelte";
 	import { Badge } from "$lib/components/ui/badge/index.js";

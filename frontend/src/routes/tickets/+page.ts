@@ -1,5 +1,5 @@
 import { client, watch } from "$lib/pocketbase";
-import type { TicketsResponse } from "$lib/pocketbase/generated-types";
+import type {TicketsResponse, UsersResponse} from "$lib/pocketbase/generated-types";
 import type { BoardsResponse } from "$lib/pocketbase/generated-types";
 import type { PageLoad } from "./$types";
 
@@ -13,11 +13,14 @@ export const load: PageLoad = async ({ parent, fetch }) => {
 	};
 	const tickets = await watch<TicketsResponse<any>>("tickets", queryParams);
 	const boards = await watch<BoardsResponse<any>>("boards", queryParams);
+	const users = await watch<UsersResponse<any>>("users", queryParams);
+
 	const { metadata } = await parent();
 
 	return {
 		metadata,
 		tickets,
 		boards,
+		users
 	};
 };

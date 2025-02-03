@@ -30,7 +30,7 @@
 {/snippet}
 
 <span
-	class="tab"
+	class="tab text-white bg-secondary-foreground"
 	class:active={$active === key}
 	onclick={() => ($active = key)}
 	onkeypress={(e) => (e.key === "Enter" || e.key === " ") && ($active = key)}
@@ -41,16 +41,16 @@
 	{@render children()}
 </span>
 
-<style lang="scss">
+<style>
 	.tab {
 		display: inline-block;
 		padding: 1em;
 		margin-bottom: 0;
 		border-radius: 6px 6px 0 0;
-		color: var(--background);
-		background-color: hsl(215, 20%, 65%);
 		cursor: pointer;
 		&.active {
+			border-style: solid;
+			border-width: 1px;
 			color: var(--tab-color-active-fg, var(--foreground));
 			background-color: var(--tab-color-active-bg, var(--text-bright));
 		}
