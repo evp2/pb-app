@@ -61,6 +61,6 @@ results (almost) immediately.
 # Feedback
 
 Please provide feedback by
-[opening an issue](https://github.com/spinspire/pocketbase-sveltekit-starter/issues/new)
+[opening an issue](https://github.com/evp2/pb-app/issues/new)
 or
-[starting a discussion](https://github.com/spinspire/pocketbase-sveltekit-starter/discussions).
+[starting a discussion](https://github.com/evp2/pb-app/discussions).
