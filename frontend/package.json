@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"dev:backend": "cd ../pb && modd",
-		"backend": "AUDITLOG=users,posts,tickets,boards ../backend/entrypoint.sh ./pocketbase --dev serve --publicDir=../sk/build",
+		"backend": "AUDITLOG=users,posts,tickets,boards ../backend/entrypoint.sh ./pocketbase --dev serve --publicDir=../frontend/build",
 		"build": "vite build",
 		"build:backend": "cd ../pb && go build",
 		"typegen": "pocketbase-typegen --db ../backend/pb_data/data.db --out ./src/lib/pocketbase/generated-types.ts",

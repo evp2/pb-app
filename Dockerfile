@@ -6,7 +6,12 @@ RUN npx pnpm install && npx pnpm run build
 FROM alpine:latest
 
 ARG PB_VERSION=0.22.30
-COPY --from=builder /ui/build /pb/pb_public
+
+# Copy local build to image
+COPY /ui/build /pb/pb_public
+
+# Or uncomment to copy build from repository to image
+# COPY --from=builder /ui/build /pb/pb_public
 
 RUN apk add --no-cache \
  unzip \
