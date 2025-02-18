@@ -37,7 +37,16 @@ export const load: LayoutLoad = async ({ fetch }) => {
 
 		config = await client.send("/api/config", { fetch, requestKey: "config" });
 	} catch (e: any) {
-		alerts.error(e.toString());
+		if (e.status === 404) {
+			alerts.add({
+				message:
+					'Not found: Please finalize installation of backend',
+				type: "error",
+				html: true,
+			});
+		} else {
+			alerts.error(e.toString());
+		}
 	}
 	return {
 		config,
