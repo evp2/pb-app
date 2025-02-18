@@ -19,7 +19,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 		};
 		signupAllowed: boolean;
 	} = {} as any;
-	const title = "Demo App";
+	const title = "Personal Backlog App";
 	const metadata: Metadata = {
 		title,
 	};

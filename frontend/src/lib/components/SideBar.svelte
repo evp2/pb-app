@@ -90,8 +90,8 @@
                                     {#if sidebar.open}
                                         <samp>Sign in</samp>
                                     {:else}
-                                        <button onclick={() => sidebar.toggle()}>
-                                            <a><User /></a>
+                                        <button onmouseover={() => sidebar.toggle()} onclick={() => sidebar.toggle()}>
+                                            <Sidebar.Trigger />
                                         </button>
                                     {/if}
                                 {/if}
@@ -102,9 +102,7 @@
                             side="top"
                             class="w-[--bits-dropdown-menu-anchor-width]"
                     >
-                        <DropdownMenu.Item>
-                            <button onclick={() => sidebar.toggle()}>Toggle Sidebar</button>
-                        </DropdownMenu.Item>
+
                         {#if $authModel}
                             <DropdownMenu.Item>
                                 <span>User</span>
@@ -117,6 +115,9 @@
                                 <span>Sign in</span>
                             </DropdownMenu.Item>
                         {/if}
+                        <DropdownMenu.Item onclick={() => sidebar.toggle()}>
+                            <button>Collapse menu</button>
+                        </DropdownMenu.Item>
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
             </Sidebar.MenuItem>
