@@ -25,7 +25,7 @@
 
 <Sidebar.Provider>
 	<header class="container">
-		<h2><Sidebar.Trigger />{metadata.headline ?? metadata.title}</h2>
+		<h2 class="title"><Sidebar.Trigger />{metadata.headline ?? metadata.title}</h2>
 		<LoginBadge signupAllowed={config.signupAllowed} />
 	</header>
 	<main class="container pb-5">
@@ -50,5 +50,8 @@
 	.container {
 		max-width: 800px;
 		margin: 0 auto;
+	}
+	.title {
+		font-size: 20px;
 	}
 </style>

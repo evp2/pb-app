@@ -31,7 +31,7 @@ This method is a good alternative for simple use cases that don't use either Doc
 2. Extract the `pocketbase.exe` from the `.zip` file you downloaded into the `/backend` folder within your project.
 3. Set up the backend
     - Open a new terminal, navigate to the `/frontend` directory and run the command `npm run backend`
-        - _For Windows:_ You will have to edit the `"backend"` script in the `./frontend/package.json` file to `cd .. && cd pb && pocketbase serve --publicDir=../frontend/build`
+        - _For Windows:_ You will have to edit the `"backend"` script in the `./frontend/package.json` file to `cd .. && cd backend && pocketbase serve --publicDir=../frontend/build`
         - _For Mac:_ _Please contribute_
 4. Set up the frontend
     - Open a new terminal, navigate to the `/frontend` directory and run the following
